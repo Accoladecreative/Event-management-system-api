@@ -1,0 +1,13 @@
+plugins {
+    kotlin("jvm")
+    kotlin("plugin.spring")
+    kotlin("plugin.jpa")
+}
+
+group = "com.challenge.deps.exception"
+
+dependencies {
+    implementation(project(":deps:response"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+}

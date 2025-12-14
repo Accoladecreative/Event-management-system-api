@@ -1,0 +1,17 @@
+server:
+  port: ${PORT:4000}
+spring:
+  application:
+    name: challenge
+  config:
+    import:
+      - classpath:application-database.yml
+  main:
+    web-application-type: servlet
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
