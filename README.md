@@ -362,9 +362,9 @@ flowchart TD
     B --> C{Request Type}
 
     C -->|POST /api/categories| D[addCategory]
-    C -->|DELETE /api/categories/{id}| E[removeCategory]
-    C -->|GET /api/categories/{id}/subtree| F[getSubtree]
-    C -->|PUT /api/categories/{id}/move/{newParentId}| G[moveSubtree]
+    C -->|DELETE /api/categories/:id| E[removeCategory]
+    C -->|GET /api/categories/:id/subtree| F[getSubtree]
+    C -->|PUT /api/categories/:id/move/:newParentId| G[moveSubtree]
 
     D --> H[CategoryService.addCategory]
     E --> I[CategoryService.removeCategory]
@@ -382,7 +382,7 @@ flowchart TD
     O --> P
 
     H --> Q[CategoryResponse DTO]
-    J --> R[List<CategoryResponse>]
+    J --> R[List of CategoryResponse]
 
     Q --> S[HTTP 201 Created]
     R --> S
