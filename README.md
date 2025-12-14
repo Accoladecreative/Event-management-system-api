@@ -356,49 +356,52 @@ Tests use H2 database configured in `app/src/test/resources/application-test.yml
 ## 📊 Implementation Flow
 
 ```mermaid
-graph TD
+flowchart TD
     A[Client Request] --> B[CategoryController]
+
     B --> C{Request Type}
-    
+
     C -->|POST /api/categories| D[addCategory]
     C -->|DELETE /api/categories/{id}| E[removeCategory]
     C -->|GET /api/categories/{id}/subtree| F[getSubtree]
     C -->|PUT /api/categories/{id}/move/{newParentId}| G[moveSubtree]
-    
+
     D --> H[CategoryService.addCategory]
     E --> I[CategoryService.removeCategory]
     F --> J[CategoryService.getSubtree]
     G --> K[CategoryService.moveSubtree]
-    
+
     H --> L[CategoryRepository.save]
     I --> M[CategoryRepository.deleteById]
-    J --> N[CategoryRepository.fetchSubtree<br/>Recursive CTE Query]
+    J --> N[CategoryRepository.fetchSubtree<br/>Recursive CTE]
     K --> O[CategoryRepository.save<br/>Update Parent]
-    
+
     L --> P[(PostgreSQL)]
     M --> P
     N --> P
     O --> P
-    
+
     H --> Q[CategoryResponse DTO]
     J --> R[List<CategoryResponse>]
-    
-    Q --> S[HTTP Response]
+
+    Q --> S[HTTP 201 Created]
     R --> S
-    I --> T[204 No Content]
-    K --> U[200 OK]
-    
-    V[CategoryNotFoundException] --> W[GlobalExceptionHandler]
-    W --> X[404 Not Found Response]
-    
-    style A fill:#e1f5ff
-    style B fill:#fff4e1
-    style H fill:#e8f5e9
-    style I fill:#e8f5e9
-    style J fill:#e8f5e9
-    style K fill:#e8f5e9
-    style P fill:#ffebee
-    style W fill:#fce4ec
+    I --> T[HTTP 204 No Content]
+    K --> U[HTTP 200 OK]
+
+    V[CategoryNotFoundException<br/>InvalidMoveException] --> W[GlobalExceptionHandler]
+    W --> X[HTTP 404 / 400 Response]
+
+    %% Styling
+    style A fill:#e3f2fd,stroke:#1e88e5
+    style B fill:#fff8e1,stroke:#f9a825
+    style H fill:#e8f5e9,stroke:#43a047
+    style I fill:#e8f5e9,stroke:#43a047
+    style J fill:#e8f5e9,stroke:#43a047
+    style K fill:#e8f5e9,stroke:#43a047
+    style P fill:#ffebee,stroke:#e53935
+    style W fill:#fce4ec,stroke:#d81b60
+
 ```
 
 ### Data Flow
